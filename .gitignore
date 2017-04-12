@@ -74,10 +74,10 @@ Escape/Content/StarterContent/
 Escape/Content/SuperGrid/
 Escape/Content/UltraDynamicSky/
 Escape/Content/UniversalSoundFX/
-
 Escape/Content/UMGColorPicker/
 
 
-
-
-*.db
+######################
+# VS Generated Files #
+######################
+*.VC.db

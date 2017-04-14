@@ -26,9 +26,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	UPROPERTY(VisibleAnywhere)
-	float openAngle = 90.0f;
-		
+	
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* pressurePlate;
 
@@ -38,12 +36,12 @@ private:
 	UPROPERTY(EditAnywhere)
 	FRotator doorRotation; // Rotation set in the editor
 
+	// time by which the door was last opened
 	float lastDoorOpenTime;
-
 	// reference to our player Actor which is just the defaultPawn
 	AActor* actorThatOpens;
 	// initial closed rotation of the Door
 	FRotator initialRotation;
-	// The Owning door Actor
+	// the Owning door Actor
 	AActor* Owner;
 };

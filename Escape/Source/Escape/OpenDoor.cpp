@@ -44,14 +44,12 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 		// Log the time in which you opened the door
 		lastDoorOpenTime = GetWorld()->GetTimeSeconds();
 	}
-	else
+
+	// Check if the current time minus the time when we triggered the pressureplate is larger than the timedelay 1.0f;
+	if (GetWorld()->GetTimeSeconds() - lastDoorOpenTime > doorCloseDelay)
 	{
-		// If the ActorThatOpens is outside of the volume
 		CloseTheDoor();
 	}
-
-	// Check if it's time to close the door
-	lastDoorOpenTime = GetWorld()->GetTimeSeconds();
 
 }
 

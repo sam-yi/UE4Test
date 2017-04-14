@@ -32,9 +32,18 @@ private:
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* pressurePlate;
 
+	UPROPERTY(EditAnywhere)
+	float doorCloseDelay = 1.0f;
+
+	UPROPERTY(EditAnywhere)
+	FRotator doorRotation; // Rotation set in the editor
+
+	float lastDoorOpenTime;
+
 	// reference to our player Actor which is just the defaultPawn
 	AActor* actorThatOpens;
-
+	// initial closed rotation of the Door
 	FRotator initialRotation;
-	
+	// The Owning door Actor
+	AActor* Owner;
 };

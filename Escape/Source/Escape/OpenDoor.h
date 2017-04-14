@@ -14,6 +14,8 @@ class ESCAPE_API UOpenDoor : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UOpenDoor();
+	void OpenTheDoor();
+	void CloseTheDoor();
 
 protected:
 	// Called when the game starts
@@ -28,7 +30,11 @@ private:
 	float openAngle = 90.0f;
 		
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* PressurePlate;
+	ATriggerVolume* pressurePlate;
 
+	// reference to our player Actor which is just the defaultPawn
+	AActor* actorThatOpens;
+
+	FRotator initialRotation;
 	
 };

@@ -67,13 +67,30 @@ void UGrabAbility::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 		5.0f
 	);
 
+
+	// Setup query parameters
+	FCollisionQueryParams traceParameters(FName(TEXT("")), false, GetOwner());
+
 	
 
-	// Ray-cast out to reach distance
+	// Line-trace (AKA Ray-cast) out to reach distance
+
+	FHitResult hit;
+
+	GetWorld()->LineTraceSingleByObjectType(
+		OUT hit,
+		playerViewPointLocation,
+		lineTraceEnd,
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		traceParameters
+	);
 
 	// See what we hit
 
+	hit.
 
+
+	UE_LOG(LogTemp, Warning, TEXT(""));
 
 
 

@@ -44,11 +44,32 @@ void UGrabAbility::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	);
 
 	// Logs to console our players current position and rotation
-	UE_LOG(LogTemp, Warning, TEXT("Location is: %s, Position is: %s"), 
+	/*UE_LOG(LogTemp, Warning, TEXT("Location is: %s, Position is: %s"), 
 		*playerViewPointLocation.ToString(), 
 		*playerViewPointRotation.ToString()
+	);*/
+
+
+	FVector lineTraceDirection = playerViewPointRotation.Vector();  // Frotator that we convert to a unit vector to get the direction we are facing as a vector
+	float reach = 200.0f;  // how far we want the line trace to extend out to
+
+
+	FVector lineTraceEnd = playerViewPointLocation + (lineTraceDirection * reach);   // here we have to multiply the reach (or magnitude) with the unit vector (or direction)
+
+	// Draw a red trace in the world to visualize
+
+	DrawDebugLine(
+		GetWorld(), 
+		playerViewPointLocation,
+		lineTraceEnd,
+		FColor(255, 255, 34),
+		false,
+		0.0f,
+		0.0f,
+		5.0f
 	);
 
+	
 
 	// Ray-cast out to reach distance
 

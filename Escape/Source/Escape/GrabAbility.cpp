@@ -51,9 +51,7 @@ void UGrabAbility::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 
 
 	FVector lineTraceDirection = playerViewPointRotation.Vector();  // Frotator that we convert to a unit vector to get the direction we are facing as a vector
-	float reach = 200.0f;  // how far we want the line trace to extend out to
-
-
+	
 	FVector lineTraceEnd = playerViewPointLocation + (lineTraceDirection * reach);   // here we have to multiply the reach (or magnitude) with the unit vector (or direction)
 
 	// Draw a red trace in the world to visualize

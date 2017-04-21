@@ -26,6 +26,25 @@ void UGrabAbility::BeginPlay()
 
 	UE_LOG(LogTemp, Warning, TEXT("Grab Ability reporting for duty!"));
 
+	/// Look for attached Physics Handle
+	/// this is the equivalent to Unity's getcomponent<>() function call
+	/// Here we use getcomponentbyclass.
+	/// Remember we are trying to get a reference for the physicsHandle component that is attached to our default pawn(ourself)
+	///  Because we are not within that class and instead we are within the grabability component class, we need to find this physicsHandle component within ourselves(GetOwner->)
+	physicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+
+	if (physicsHandle)
+	{
+		// Phyics handle is found
+	}
+	else
+	{
+		// This error message lets us know that this owner(object) that the physics handle component is suppose to be attached to has not been found
+		// It gets the owners name (this object) and lets us know the physics handle component was not found
+		// ** If you want to test this, you can go into the defaut pawn blueprint and delete the physics handle component then press play and check the console
+		UE_LOG(LogTemp, Error, TEXT("%s is missing the physics handle component"), *GetOwner()->GetName())
+	}
+
 }
 
 
@@ -97,7 +116,7 @@ void UGrabAbility::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	AActor* actorsName = hit.GetActor();
 
 
-	if (actorsName) // without this null test condition, the game crashes.  Probably because as soon as the game begins this variable is null
+	if (actorsName) // without this null test condition, the game crashes.  Probably because as soon as the game begins this pointer variable is null
 	{
 		UE_LOG(LogTemp, Warning, TEXT("I am looking at: %s"), *actorsName->GetName());
 	}

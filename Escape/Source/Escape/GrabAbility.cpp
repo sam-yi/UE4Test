@@ -69,7 +69,11 @@ void UGrabAbility::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 
 
 	// Setup query parameters
-	FCollisionQueryParams traceParameters(FName(TEXT("")), false, GetOwner());
+	// Fname here corresponds to the trace collision tag, we obviously arent using it so put an empty string (Fname) instead
+	// The boolean parameter, if false indicates that we wnt be using complex collisions for the objects we mean to interact with
+	// Final parameter is asking for an actor that we may want to ignore (remember "ignore" is a condition for the collision matrix). 
+	// Here we say we want to ignore ourselves so we call the GeTOwner() to get the owner of this component, i.e. the actor that is ourself.
+	FCollisionQueryParams traceParameters(FName(TEXT("")), false, GetOwner());  
 
 	
 
@@ -77,20 +81,27 @@ void UGrabAbility::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 
 	FHitResult hit;
 
+	// This is a standard raycast function.
+	// It works like in unity and there Physics.Raycast() function
+	// The goal for the calling of the below function is to get back information from the "hit" variable, which gets filled by this function call
 	GetWorld()->LineTraceSingleByObjectType(
 		OUT hit,
 		playerViewPointLocation,
 		lineTraceEnd,
-		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),  // This is an enum that you decide is the object type that you want the hit to capture from only.
 		traceParameters
 	);
 
 	// See what we hit
 
-	hit.
+	AActor* actorsName = hit.GetActor();
 
 
-	UE_LOG(LogTemp, Warning, TEXT(""));
+	if (actorsName) // without this null test condition, the game crashes.  Probably because as soon as the game begins this variable is null
+	{
+		UE_LOG(LogTemp, Warning, TEXT("I am looking at: %s"), *actorsName->GetName());
+	}
+
 
 
 

@@ -32,6 +32,6 @@ private:
 	// Special fact# "nullptr" actually points to the memory address of 0.
 	UPhysicsHandleComponent* physicsHandle = nullptr; 
 
-
+	UInputComponent* inputComponent = nullptr;
 
 };

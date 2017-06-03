@@ -26,11 +26,12 @@ void UGrabAbility::BeginPlay()
 
 	UE_LOG(LogTemp, Warning, TEXT("Grab Ability reporting for duty!"));
 
-	/// Look for attached Physics Handle
-	/// this is the equivalent to Unity's getcomponent<>() function call
-	/// Here we use getcomponentbyclass.
-	/// Remember we are trying to get a reference for the physicsHandle component that is attached to our default pawn(ourself)
-	///  Because we are not within that class and instead we are within the grabability component class, we need to find this physicsHandle component within ourselves(GetOwner->)
+	// Look for attached Physics Handle
+	// this is the equivalent to Unity's getcomponent<>() function call
+	// Here we use getcomponentbyclass.
+	// Remember we are trying to get a reference for the physicsHandle component that is attached to our default pawn(ourself)
+	// Because we are not within that class and instead we are within the grabability component class, we need to find this 
+	// physicsHandle component within ourselves(GetOwner->)
 	physicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
 
 	if (physicsHandle)
@@ -39,11 +40,29 @@ void UGrabAbility::BeginPlay()
 	}
 	else
 	{
-		// This error message lets us know that this owner(object) that the physics handle component is suppose to be attached to has not been found
+		// This error message lets us know that this owner(object) that the physics handle component is suppose to be attached 
+		// to has not been found
 		// It gets the owners name (this object) and lets us know the physics handle component was not found
-		// ** If you want to test this, you can go into the defaut pawn blueprint and delete the physics handle component then press play and check the console
+		// ** If you want to test this, you can go into the defaut pawn blueprint and delete the physics handle component then 
+		// press play and check the console
 		UE_LOG(LogTemp, Error, TEXT("%s is missing the physics handle component"), *GetOwner()->GetName())
 	}
+
+
+	inputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+
+	if (inputComponent)
+	{
+		// Yay it exists!
+		UE_LOG(LogTemp, Error, TEXT("Yay! %s exists!"), *inputComponent->GetName());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s is missing the InputComponent"), *GetOwner()->GetName());
+	}
+
+
+
 
 }
 
@@ -89,8 +108,8 @@ void UGrabAbility::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 
 	// Setup query parameters
 	// Fname here corresponds to the trace collision tag, we obviously arent using it so put an empty string (Fname) instead
-	// The boolean parameter, if false indicates that we wnt be using complex collisions for the objects we mean to interact with
-	// Final parameter is asking for an actor that we may want to ignore (remember "ignore" is a condition for the collision matrix). 
+	// The boolean parameter, if false indicates that we wont be using complex collisions for the objects we mean to interact with
+	// Final parameter is asking for an actor that we may want to ignore (remember "ignore" is a condition in the collision matrix). 
 	// Here we say we want to ignore ourselves so we call the GeTOwner() to get the owner of this component, i.e. the actor that is ourself.
 	FCollisionQueryParams traceParameters(FName(TEXT("")), false, GetOwner());  
 
@@ -101,7 +120,7 @@ void UGrabAbility::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	FHitResult hit;
 
 	// This is a standard raycast function.
-	// It works like in unity and there Physics.Raycast() function
+	// It works like in unity and their Physics.Raycast() function
 	// The goal for the calling of the below function is to get back information from the "hit" variable, which gets filled by this function call
 	GetWorld()->LineTraceSingleByObjectType(
 		OUT hit,
